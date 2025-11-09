@@ -102,7 +102,7 @@ class UserView(ft.View):
                                         scroll=ft.ScrollMode.AUTO,
                                     ),
                                     expand=True,
-                                    height=self.page.window_height - 200,
+                                    height=self.page.height - 200,
                                 ),
                             ]
                         ),
@@ -249,7 +249,7 @@ class UserView(ft.View):
         self.update()
 
     # ==============================
-    # GENERAR PDF (SnackBar funcional)
+    #         GENERAR PDF
     # ==============================
     def generar_pdf(self, e):
         if not self.nombre_cliente.value:
@@ -261,7 +261,7 @@ class UserView(ft.View):
 
         try:
             generar_pdf(self.nombre_cliente.value.strip(), self.carrito, self.mano_obra)
-            self.snack_bar.content = ft.Text("PDF generado correctamente en carpeta Reports", text_align=ft.TextAlign.CENTER,)
+            self.snack_bar.content = ft.Text("PDF generado correctamente en carpeta Reports", text_align=ft.TextAlign.CENTER)
             self.snack_bar.bgcolor = ft.Colors.GREEN_400
             self.snack_bar.open = True
             self.update()

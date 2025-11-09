@@ -11,11 +11,10 @@ MODE = os.getenv("MODE", "desktop").lower()
 def main(page: ft.Page):
     page.title = "Sistema de Inventario CCTV"
     page.theme_mode = ft.ThemeMode.LIGHT
-    page.window_width = 1000
-    page.window_height = 700
     page.bgcolor = ft.Colors.WHITE
+    ft.Page.width.setter(1000)
+    ft.Page.height.setter (800)
 
-    # Inicializa la base de datos
     init_db()
 
     # Campos de login
@@ -23,14 +22,10 @@ def main(page: ft.Page):
     password_input = ft.TextField(label="Contraseña", password=True, can_reveal_password=True, width=300)
 
     def login(e):
-        user = usuario_input.value.strip()
-        pwd = password_input.value.strip()
+        user = usuario_input.value.strip()  # type: ignore
+        pwd = password_input.value.strip()  # type: ignore
         if user == "admin" and pwd == "1234":
             page.go("/admin")
-        else:
-            page.dialog = ft.AlertDialog(title=ft.Text("Credenciales incorrectas"))
-            page.dialog.open = True
-            page.update()
     
     def access_catalog(e):
         page.go("/user")
@@ -46,22 +41,18 @@ def main(page: ft.Page):
             bat_path = os.path.join(os.getcwd(), "run_all.bat")
             subprocess.Popen([bat_path], shell=True)
             launch_btn.visible = False
-            page.snack_bar = ft.SnackBar(ft.Text("✅ Web + LocalTunnel iniciado"))
+            page.update()
         except Exception as ex:
-            page.snack_bar = ft.SnackBar(ft.Text(f"❌ Error al iniciar: {ex}"))
-        page.snack_bar.open = True
+            pass
         page.update()
 
-    launch_btn = ft.ElevatedButton("Lanzar Web + LT", on_click=launch_web_lt, icon=ft.Icons.WEB)
+    launch_btn = ft.ElevatedButton("Lanzar Web", on_click=launch_web_lt, icon=ft.Icons.WEB)
 
     # 🔹 Si está en modo web, ocultar el botón
     if MODE == "web":
         launch_btn.visible = False
 
-    info_text = ft.Text(
-        "Ingrese Usuario y Contraseña para entrar como Administrador",
-        size=12, italic=True, color=ft.Colors.GREY,
-    )
+    info_text = ft.Text("Ingrese Usuario y Contraseña para entrar como Administrador", size=12, italic=True, color=ft.Colors.GREY)
 
     login_view = ft.View(
         route="/",

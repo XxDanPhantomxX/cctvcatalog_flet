@@ -6,19 +6,19 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, 
 from reportlab.lib.styles import getSampleStyleSheet
 from database import get_config
 
+REPORTES_DIR = "storage/reports"
 
 def generar_pdf(nombre_cliente, carrito, mano_obra):
-    os.makedirs("storage/reports", exist_ok=True)
+    os.makedirs(REPORTES_DIR, exist_ok=True)
 
     fecha = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    filename = f"cotizacion_{fecha}.pdf"
-    path = os.path.join("storage/reports", filename)
+    filename = f"Cotizacion_{nombre_cliente}_{fecha}.pdf"
+    path = os.path.join(REPORTES_DIR, filename)
 
     doc = SimpleDocTemplate(path, pagesize=letter)
     elements = []
     styles = getSampleStyleSheet()
 
-    # Logo (si existe)
     logo_path = get_config("logo")
     if logo_path and os.path.exists(logo_path) and logo_path != "":
         try:
