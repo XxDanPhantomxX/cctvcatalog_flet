@@ -252,26 +252,21 @@ class UserView(ft.View):
     # GENERAR PDF (SnackBar funcional)
     # ==============================
     def generar_pdf(self, e):
-        if not self.nombre_cliente.value.strip():
-            dlg = ft.AlertDialog(title=ft.Text("Por favor ingrese el nombre del cliente"))
-            self.dialog = dlg
-            dlg.open = True
+        if not self.nombre_cliente.value:
+            self.snack_bar.content = ft.Text("Ingrese el Nombre del Cliente", text_align=ft.TextAlign.CENTER)
+            self.snack_bar.open = True
+            self.snack_bar.bgcolor = ft.Colors.RED_400
             self.update()
             return
 
         try:
             generar_pdf(self.nombre_cliente.value.strip(), self.carrito, self.mano_obra)
-            self.snack_bar.content = ft.Text(
-                "PDF generado correctamente en carpeta Reports",
-                text_align=ft.TextAlign.CENTER,
-            )
+            self.snack_bar.content = ft.Text("PDF generado correctamente en carpeta Reports", text_align=ft.TextAlign.CENTER,)
             self.snack_bar.bgcolor = ft.Colors.GREEN_400
             self.snack_bar.open = True
             self.update()
         except Exception as ex:
-            self.snack_bar.content = ft.Text(
-                f"Error al generar PDF: {ex}", text_align=ft.TextAlign.CENTER
-            )
+            self.snack_bar.content = ft.Text(f"Error al generar PDF: {ex}", text_align=ft.TextAlign.CENTER)
             self.snack_bar.bgcolor = ft.Colors.RED_400
             self.snack_bar.open = True
             self.update()
