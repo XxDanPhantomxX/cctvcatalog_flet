@@ -1,0 +1,5 @@
+flet>=0.28.3
+reportlab>=3.6
+Pillow>=9.0
+cloudinary==1.41.0
+python-dotenv==1.2.1
