@@ -6,9 +6,6 @@ from dotenv import load_dotenv
 import subprocess
 import os
 
-# =====================================================
-# Detectar modo desde variable de entorno
-# =====================================================
 MODE = os.getenv("MODE", "desktop").lower()
 
 def main(page: ft.Page):
